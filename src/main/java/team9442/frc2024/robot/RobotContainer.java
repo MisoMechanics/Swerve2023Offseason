@@ -6,10 +6,12 @@ package team9442.frc2024.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import team9442.frc2024.constants.ElevatorConstants;
+import team9442.frc2024.constants.DrivetrainConstants;
 import team9442.frc2024.constants.GlobalConstants;
+import team9442.frc2024.subsystems.Drivetrain;
 import team9442.frc2024.subsystems.Elevator;
+import team9442.frc2024.util.Joysticks;
 
 public class RobotContainer {
 
@@ -20,23 +22,43 @@ public class RobotContainer {
 
     private void configureDefaultCommands() {
         elevator.setDefaultCommand(elevator.holdAtCall());
+        drivetrain.setDefaultCommand(
+                drivetrain.drive(
+                        () -> -DrivetrainConstants.kXDriveLimiter.calculate(mainController.getLeftStickX()),
+                        () -> -DrivetrainConstants.kYDriveLimiter.calculate(mainController.getLeftStickY()),
+                        () ->
+                                -DrivetrainConstants.kThetaDriveLimiter.calculate(
+                                        mainController.getRightStickX()),
+                        true,
+                        false));
     }
 
     private void configureBindings() {
-        coController.a().onTrue(elevator.length(ElevatorConstants.kMinimumPosition));
-        coController.b().onTrue(elevator.length(ElevatorConstants.kMidPosition));
-        coController.x().onTrue(elevator.home(-0.2));
+        coController.buttonA.onTrue(elevator.length(ElevatorConstants.kMinimumPosition));
+        coController.buttonB.onTrue(elevator.length(ElevatorConstants.kMidPosition));
+        coController.buttonX.onTrue(elevator.home(-0.2));
         coController
-                .leftBumper()
-                .whileTrue(elevator.openloop(() -> coController.getLeftTriggerAxis() * 0.5));
+                .leftBumper
+                .whileTrue(elevator.openloop(() -> coController.getLeftStickX() * 0.5));
+
+        mainController.start.onTrue(drivetrain.zeroGyroCommand());
     }
 
     public Command getAutonomousCommand() {
         return Commands.none();
     }
 
-    private final CommandXboxController mainController = new CommandXboxController(0);
-    private final CommandXboxController coController = new CommandXboxController(1);
+    private final Joysticks mainController = new Joysticks(0, DrivetrainConstants.kAxisDeadzone);
+    private final Joysticks coController = new Joysticks(1, DrivetrainConstants.kAxisDeadzone);
+
+    private final Drivetrain drivetrain =
+            new Drivetrain(
+                    DrivetrainConstants.kModules, 
+                    DrivetrainConstants.kGyro, 
+                    DrivetrainConstants.kSwerveKinematics, 
+                    DrivetrainConstants.kMaxVelocityMetersPerSecond, 
+                    DrivetrainConstants.kMaxAngularRadiansPerSecond);
+
     private final Elevator elevator =
             new Elevator(
                     ElevatorConstants.kMaster,
