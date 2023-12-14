@@ -1,17 +1,19 @@
 package team9442.frc2024.util;
 
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CANcoderConfigurator;
+import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import team9442.frc2024.constants.GlobalConstants.DrivetrainIds;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.util.Units;
+import team9442.frc2024.constants.DrivetrainConstants;
 
 public class SwerveModuleConstants {
-    public final int driveMotorID;
-    public final int angleMotorID;
-    public final int canCoderID;
-    public final double canCoderOffsetDegrees;
-
     /** Speed ramp. */
     public static final double kOpenLoopRamp = 0.25;
     public static final double kClosedLoopRamp = 0.0;
@@ -37,11 +39,7 @@ public class SwerveModuleConstants {
     public static final double kAngleKd = 0.1;
     public static final double kAngleKf = 0.0;
 
-    public SwerveModuleConstants(
-            int driveMotorID, int angleMotorID, int canCoderID, double canCoderOffsetDegrees) {
-        this.driveMotorID = driveMotorID;
-        this.angleMotorID = angleMotorID;
-        this.canCoderID = canCoderID;
-        this.canCoderOffsetDegrees = canCoderOffsetDegrees;
+    private SwerveModuleConstants(){
+
     }
 }
