@@ -44,7 +44,7 @@ public class Drivetrain extends SubsystemBase {
             boolean isFieldRelative,
             boolean isOpenLoop) {
         return run(() -> {
-                    // Grabbing input from suppliers.
+                    // Grabbing input from suppliers, -1 to 1 axis value
                     double forwardBack = forwardBackAxis.getAsDouble();
                     double leftRight = leftRightAxis.getAsDouble();
                     double rotation = rotationAxis.getAsDouble();
@@ -63,6 +63,9 @@ public class Drivetrain extends SubsystemBase {
 
                     SwerveModuleState[] states =
                             swerveKinematics.toSwerveModuleStates(chassisSpeeds);
+
+                    // 2024 discretization BETA
+                    ChassisSpeeds.discretize(chassisSpeeds, .02);
 
                     setModuleStates(states, isOpenLoop);
                 })

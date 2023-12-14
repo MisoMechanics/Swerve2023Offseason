@@ -91,7 +91,8 @@ public class SwerveModule {
     }
 
     public Rotation2d getAngle() {
-        return new Rotation2d(angleEncoder.getPosition());
+        // return new Rotation2d(angleEncoder.getPosition());
+        return Rotation2d.fromRotations(angleEncoder.getPosition());
     }
 
     public SwerveModulePosition getPosition() {
