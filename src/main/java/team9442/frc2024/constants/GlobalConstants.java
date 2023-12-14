@@ -20,7 +20,7 @@ public final class GlobalConstants {
         public static final int kMod1DriveId = 4;
         public static final int kMod1AngleId = 5;
         public static final int kMod1EncoderId = 6;
-        
+
         public static final int kMod2DriveId = 7;
         public static final int kMod2AngleId = 8;
         public static final int kMod2EncoderId = 9;

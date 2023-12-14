@@ -5,14 +5,12 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import team9442.frc2024.constants.GlobalConstants.DrivetrainIds;
 import team9442.frc2024.util.SwerveModule;
-import team9442.frc2024.util.SwerveModuleConstants;
 
 /**
  * This class contains values that remain constant while the robot is running.
@@ -34,6 +32,7 @@ public class DrivetrainConstants {
     public static final double kTrackWidth =
             Units.inchesToMeters(
                     18.75); // Width of the drivetrain measured from the middle of the wheels.
+
     public static final double kWheelBase =
             Units.inchesToMeters(
                     18.75); // Length of the drivetrain measured from the middle of the wheels.
@@ -56,68 +55,74 @@ public class DrivetrainConstants {
 
     /** Swerve constraints. */
     public static final double kMaxVelocityMetersPerSecond = 3.0;
+
     public static final double kMaxAngularRadiansPerSecond = 4.0;
 
     /** Inversions. */
     public static final boolean kCancoderCCWPos = false;
+
     public static final boolean kDriveMotorInvert = true;
     public static final boolean kAngleMotorInvert = false;
 
     /** Idle modes. */
     public static final IdleMode kDriveIdleMode = IdleMode.kBrake;
+
     public static final IdleMode kAngleIdleMode = IdleMode.kCoast;
 
     /** Hardware intialization */
     public static final Pigeon2 kGyro = new Pigeon2(DrivetrainIds.kGyroId);
+
     public static final CANSparkMax kMod0Drive =
             new CANSparkMax(DrivetrainIds.kMod0DriveId, MotorType.kBrushless);
     public static final CANSparkMax kMod0Angle =
             new CANSparkMax(DrivetrainIds.kMod0AngleId, MotorType.kBrushless);
-    public static final CANcoder kMod0Encoder =
-            new CANcoder(DrivetrainIds.kMod0EncoderId);
+    public static final CANcoder kMod0Encoder = new CANcoder(DrivetrainIds.kMod0EncoderId);
 
     public static final CANSparkMax kMod1Drive =
             new CANSparkMax(DrivetrainIds.kMod1DriveId, MotorType.kBrushless);
     public static final CANSparkMax kMod1Angle =
             new CANSparkMax(DrivetrainIds.kMod1AngleId, MotorType.kBrushless);
-    public static final CANcoder kMod1Encoder =
-            new CANcoder(DrivetrainIds.kMod1EncoderId);
+    public static final CANcoder kMod1Encoder = new CANcoder(DrivetrainIds.kMod1EncoderId);
 
     public static final CANSparkMax kMod2Drive =
             new CANSparkMax(DrivetrainIds.kMod2DriveId, MotorType.kBrushless);
     public static final CANSparkMax kMod2Angle =
             new CANSparkMax(DrivetrainIds.kMod2AngleId, MotorType.kBrushless);
-    public static final CANcoder kMod2Encoder =
-            new CANcoder(DrivetrainIds.kMod2EncoderId);
+    public static final CANcoder kMod2Encoder = new CANcoder(DrivetrainIds.kMod2EncoderId);
 
     public static final CANSparkMax kMod3Drive =
             new CANSparkMax(DrivetrainIds.kMod3DriveId, MotorType.kBrushless);
     public static final CANSparkMax kMod3Angle =
             new CANSparkMax(DrivetrainIds.kMod3AngleId, MotorType.kBrushless);
-    public static final CANcoder kMod3Encoder =
-            new CANcoder(DrivetrainIds.kMod3EncoderId);
-    
+    public static final CANcoder kMod3Encoder = new CANcoder(DrivetrainIds.kMod3EncoderId);
+
     /**
-     * Module specific constants. CanCoder offset is in DEGREES, not radians like the rest of
-     * the repo. This is to make offset slightly more accurate and easier to measure.
+     * Module specific constants. CanCoder offset is in DEGREES, not radians like the rest of the
+     * repo. This is to make offset slightly more accurate and easier to measure.
      */
     public static final SwerveModule[] kModules =
             new SwerveModule[] {
-                new SwerveModule(0, kMod0Drive, kMod0Angle, kMod0Encoder, kMaxVelocityMetersPerSecond),
-                new SwerveModule(1, kMod1Drive, kMod1Angle, kMod1Encoder, kMaxVelocityMetersPerSecond),
-                new SwerveModule(2, kMod2Drive, kMod2Angle, kMod2Encoder, kMaxVelocityMetersPerSecond),
-                new SwerveModule(3, kMod3Drive, kMod3Angle, kMod3Encoder, kMaxVelocityMetersPerSecond),
+                new SwerveModule(
+                        0, kMod0Drive, kMod0Angle, kMod0Encoder, kMaxVelocityMetersPerSecond),
+                new SwerveModule(
+                        1, kMod1Drive, kMod1Angle, kMod1Encoder, kMaxVelocityMetersPerSecond),
+                new SwerveModule(
+                        2, kMod2Drive, kMod2Angle, kMod2Encoder, kMaxVelocityMetersPerSecond),
+                new SwerveModule(
+                        3, kMod3Drive, kMod3Angle, kMod3Encoder, kMaxVelocityMetersPerSecond),
             };
 
     /** PID Values. */
     public static final double kAutoXKP = 1.0;
+
     public static final double kAutoYKP = 1.0;
     public static final double kAutoThetaKP = 1.0;
 
     /** Constraints. */
     public static final double kAutoMaxVelMPS = 2.0;
+
     public static final double kAutoMaxAccelMPS2 = 5.0;
 
-    private DrivetrainConstants() {};
+    private DrivetrainConstants() {}
+    ;
 }
-

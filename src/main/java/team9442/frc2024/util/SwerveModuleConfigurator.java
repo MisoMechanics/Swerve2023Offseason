@@ -9,14 +9,13 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.util.Units;
 import team9442.frc2024.constants.DrivetrainConstants;
 
-
 public class SwerveModuleConfigurator {
-    public void configureDriveMotor(CANSparkMax driveMotor, SimpleMotorFeedforward driveFeedforward){
+    public void configureDriveMotor(
+            CANSparkMax driveMotor, SimpleMotorFeedforward driveFeedforward) {
         SparkMaxPIDController drivePID = driveMotor.getPIDController();
         RelativeEncoder driveEncoder = driveMotor.getEncoder();
         driveFeedforward =
@@ -40,10 +39,9 @@ public class SwerveModuleConfigurator {
         driveEncoder.setPositionConversionFactor(DrivetrainConstants.kDriveRotationsMeters);
         driveEncoder.setVelocityConversionFactor(DrivetrainConstants.kDriveRpmMetersPerSecond);
         driveEncoder.setPosition(0);
-
     }
 
-    public void configureAngleMotor(CANSparkMax angleMotor, CANcoder canCoder){
+    public void configureAngleMotor(CANSparkMax angleMotor, CANcoder canCoder) {
         SparkMaxPIDController anglePID = angleMotor.getPIDController();
         RelativeEncoder angleEncoder = angleMotor.getEncoder();
 
@@ -63,9 +61,7 @@ public class SwerveModuleConfigurator {
 
         angleEncoder.setPositionConversionFactor(DrivetrainConstants.kAngleRotationsRadians);
         angleEncoder.setVelocityConversionFactor(DrivetrainConstants.kAngleRPMRadPerSec);
-        angleEncoder.setPosition(
-                Units.degreesToRadians(
-                        canCoder.getAbsolutePosition().getValue()));
+        angleEncoder.setPosition(Units.degreesToRadians(canCoder.getAbsolutePosition().getValue()));
     }
 
     public void configureCanCoder(CANcoder canCoder) {
@@ -86,5 +82,6 @@ public class SwerveModuleConfigurator {
         configurator.apply(canCoderConfiguration);
     }
 
-    public SwerveModuleConfigurator(){};
+    public SwerveModuleConfigurator() {}
+    ;
 }

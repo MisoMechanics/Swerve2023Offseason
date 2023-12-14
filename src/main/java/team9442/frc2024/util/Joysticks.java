@@ -119,9 +119,7 @@ public class Joysticks {
      * @param deadband range around zero
      */
     private double applyDeadband(double value, double deadband) {
-        return Math.abs(value) < axisDeadzone
-                                    ? 0
-                                    : value;
+        return Math.abs(value) < axisDeadzone ? 0 : value;
     }
 
     /**

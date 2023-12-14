@@ -1,22 +1,13 @@
 package team9442.frc2024.util;
 
-import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.ctre.phoenix6.configs.CANcoderConfigurator;
-import com.ctre.phoenix6.configs.MagnetSensorConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
-import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
-import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.CAN;
-import team9442.frc2024.constants.DrivetrainConstants;
 
 public class SwerveModule {
     public final int moduleNumber;
@@ -37,7 +28,12 @@ public class SwerveModule {
 
     private SwerveModuleConfigurator configurator = new SwerveModuleConfigurator();
 
-    public SwerveModule(int moduleNumber, CANSparkMax driveMotor, CANSparkMax angleMotor, CANcoder canCoder, double maxSpeed) {
+    public SwerveModule(
+            int moduleNumber,
+            CANSparkMax driveMotor,
+            CANSparkMax angleMotor,
+            CANcoder canCoder,
+            double maxSpeed) {
         this.moduleNumber = moduleNumber;
 
         driveEncoder = driveMotor.getEncoder();
@@ -76,8 +72,7 @@ public class SwerveModule {
         }
 
         double angle =
-                Math.abs(state.speedMetersPerSecond)
-                                <= maxSpeed * 0.01
+                Math.abs(state.speedMetersPerSecond) <= maxSpeed * 0.01
                         ? lastAngle
                         : state.angle.getRadians();
 

@@ -1,9 +1,6 @@
 package team9442.frc2024.subsystems;
 
-import java.util.function.DoubleSupplier;
-
 import com.ctre.phoenix6.hardware.Pigeon2;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -14,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import java.util.function.DoubleSupplier;
 import team9442.frc2024.util.SwerveModule;
 
 public class Drivetrain extends SubsystemBase {
@@ -24,7 +22,12 @@ public class Drivetrain extends SubsystemBase {
     private final double maxRotation;
     private final Pigeon2 gyro;
 
-    public Drivetrain(team9442.frc2024.util.SwerveModule[] modules, Pigeon2 gyro, SwerveDriveKinematics kinematics, double maxSpeedMetersPerSecond, double maxRotationRadsPerSecond) {
+    public Drivetrain(
+            team9442.frc2024.util.SwerveModule[] modules,
+            Pigeon2 gyro,
+            SwerveDriveKinematics kinematics,
+            double maxSpeedMetersPerSecond,
+            double maxRotationRadsPerSecond) {
         this.modules = modules;
         this.swerveKinematics = kinematics;
         this.swerveOdometry = new SwerveDriveOdometry(kinematics, getYaw(), getPositions());
@@ -40,7 +43,7 @@ public class Drivetrain extends SubsystemBase {
             DoubleSupplier rotationAxis,
             boolean isFieldRelative,
             boolean isOpenLoop) {
-            return run(() -> {
+        return run(() -> {
                     // Grabbing input from suppliers.
                     double forwardBack = forwardBackAxis.getAsDouble();
                     double leftRight = leftRightAxis.getAsDouble();
@@ -73,8 +76,7 @@ public class Drivetrain extends SubsystemBase {
 
     private void setModuleStates(SwerveModuleState[] states, boolean isOpenLoop) {
         // Makes sure the module states don't exceed the max speed.
-        SwerveDriveKinematics.desaturateWheelSpeeds(
-                states, maxSpeed);
+        SwerveDriveKinematics.desaturateWheelSpeeds(states, maxSpeed);
 
         for (int i = 0; i < modules.length; i++) {
             modules[i].setState(states[modules[i].moduleNumber], isOpenLoop);
